@@ -2,7 +2,21 @@
     "doctors":
     [
         {
-            "name":"test"
+            "id":"1",
+            "firstName":"doogie",
+            "lastName":"houser",
+            "email":"dh@docsunite.org",
+            "password":"12345",
+            "availablility": [{
+                "monday": "9-5",
+                "tuesday": "9-5",
+                "wednesday":"",
+                "thursday":"",
+                "friday":"",
+                "saturday":"",
+                "sunday":""
+            }],
+            "appointments": "yes"
         }
     ]
 }
