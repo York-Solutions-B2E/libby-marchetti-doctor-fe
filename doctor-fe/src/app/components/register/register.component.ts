@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Doctor } from '../data/CDoctor';
-import { UiService } from '../services/ui.service';
+import { Doctor } from '../../data/CDoctor';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-register',
