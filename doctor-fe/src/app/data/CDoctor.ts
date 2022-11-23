@@ -4,7 +4,7 @@ export class Doctor {
     public lastName: string;
     public email: string;
     public password: string;
-    public availablity: Date[] | null;
+    public availability: Date[] | null;
     public appointments: Date[] | null
 
     constructor(
@@ -21,7 +21,7 @@ export class Doctor {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.availablity = availability;
+        this.availability = availability;
         this.appointments = appointments
     }
 }
