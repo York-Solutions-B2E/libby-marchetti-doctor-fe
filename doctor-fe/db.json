@@ -1,16 +1,22 @@
 {
-    "doctors":
-    [
-        {
-            "id":"1",
-            "firstName":"doogie",
-            "lastName":"houser",
-            "email":"dh@docsunite.org",
-            "password":"12345",
-            "availablility": [
-                
-            ],
-            "appointments": "yes"
-        }
-    ]
+  "doctors": [
+    {
+      "id": "1",
+      "firstName": "doogie",
+      "lastName": "houser",
+      "email": "dh@docsunite.org",
+      "password": "12345",
+      "availablility": [],
+      "appointments": []
+    },
+    {
+      "id": 0.1464000428467711,
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "availability": null,
+      "appointments": null
+    }
+  ]
 }
