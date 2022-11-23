@@ -1,12 +1,14 @@
 1) Doctors
-    - create class
+    - create class -done
     
-    - register
+    - register -done
         - new doctor            
-            first name
-            last name
-            email
-            password
+            first name -y
+            last name -y
+            email -y
+            password -y
+            avail -?
+            appt -?
 
     - login
         - if user exists && email match && password match

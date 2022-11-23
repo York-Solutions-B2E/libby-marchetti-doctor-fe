@@ -36,6 +36,8 @@ export class UiService {
       .pipe(take(1))
       .subscribe(doctors => {
         console.log(doctors)
+        this.doctors = doctors
+        this.doctorSubject.next(this.doctors)
       })
   }
 
@@ -43,6 +45,14 @@ export class UiService {
     this.http
       .post(`http://localhost:3000/doctors`, doctor)
       .subscribe(() => this.updatedDoctors())      
+  }
+
+  getDocById(id: number): void {
+    this.http
+      .get<Doctor>(`http://localhost:3000/doctors/${id}`)
+      .subscribe(doctor => {
+        console.log(doctor)
+      })
   }
 
   whenDoctorsUpdated(): Observable<Doctor[]> {

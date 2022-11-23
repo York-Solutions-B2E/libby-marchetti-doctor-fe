@@ -1,5 +1,13 @@
 <h1>Register</h1>
 <div>
+    <label for="role-doc">Doctor: SOMEHOW, SOME WAY, ADD A SELECTION FOR ROLE OF DOC OR PAT</label>
+    <input id="role-doc" type="radio">
+</div>
+<div>
+    <label for="role-pat">Patient: </label>
+    <input id="role-pat" type="radio">
+</div>
+<div>
     <label for="first-name">First Name: </label>
     <input id="first-name" #firstName type="text" 
     placeholder="First Name" (keyup)="updateFirstName(firstName.value)"/>
