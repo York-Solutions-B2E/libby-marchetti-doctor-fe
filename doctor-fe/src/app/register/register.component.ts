@@ -27,4 +27,20 @@ export class RegisterComponent {
   login():void {
     console.log(`login clicked`)
   };
+
+  updateFirstName(firstName: string): void {
+    this.doctor.firstName = firstName;
+  }
+
+  updateLastName(lastName: string): void {
+    this.doctor.lastName = lastName
+  }
+
+  updateEmail(email: string): void {
+    this.doctor.email = email;
+  }
+
+  updatePassword(password: string): void{
+    this.doctor.password = password;
+  }
 }

@@ -1,17 +1,21 @@
 <h1>Register</h1>
 <div>
     <label for="first-name">First Name: </label>
-    <input id="first-name" type="text" placeholder="First Name" />
+    <input id="first-name" #firstName type="text" 
+    placeholder="First Name" (keyup)="updateFirstName(firstName.value)"/>
 </div>
     <label for="last-name">Last Name: </label>
-    <input id="last-name" type="text" placeholder="Last Name" />
+    <input id="last-name" #lastName type="text" 
+    placeholder="Last Name" (keyup)="updateLastName(lastName.value)"/>
 <div>
     <label for="email">Email: </label>
-    <input id="email" type="text" placeholder="Email" />
+    <input id="email" #email type="text" 
+    placeholder="Email" (keyup)="updateEmail(email.value)" />
 </div>
 <div>
     <label for="password">Password: </label>
-    <input id="password" type="text" placeholder="Password" />
+    <input id="password" #password type="text" 
+    placeholder="Password" (keyup)="updatePassword(password.value)"/>
 </div>
 <div>
     <button type="button" (click)="register()">Register</button>
