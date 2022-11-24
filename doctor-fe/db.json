@@ -26,6 +26,15 @@
       "password": "dr",
       "availability": null,
       "appointments": null
+    },
+    {
+      "id": 0.31808735360617746,
+      "firstName": "timmy",
+      "lastName": "turner",
+      "email": "wishful1@fairy.org",
+      "password": "nofaries",
+      "availability": null,
+      "appointments": null
     }
   ]
 }

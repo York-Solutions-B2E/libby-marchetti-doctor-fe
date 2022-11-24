@@ -8,8 +8,12 @@ import { UiService } from 'src/app/services/ui.service';
   styleUrls: ['./doctor.component.css']
 })
 export class DoctorComponent {
+  @Input() doctor: Doctor | null = null;
+  private ui: UiService;
 
-  public doctors: Doctor[];
+ constructor(ui: UiService ){
+    this.ui = ui;
+  }
 
 //  ui: UiService;
 
@@ -26,7 +30,5 @@ export class DoctorComponent {
 //     new Date(),
 //   ]
 //  }
-  constructor(ui: UiService ){
-    this.doctors = ui.doctors
-  }
+  
 }
