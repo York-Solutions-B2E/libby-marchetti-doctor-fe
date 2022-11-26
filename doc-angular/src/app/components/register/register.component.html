@@ -1,0 +1,26 @@
+<p>register</p>
+<div>
+    <div>
+        <input type="text" #role (keyup)="setRole(role.value)"
+        placeholder="patient or doctor"/>
+    </div>   
+    <div>
+        <input type="text" #firstName (keyup)="setFirstName(firstName.value)"
+        placeholder="first"/>
+    </div> 
+    <div>
+        <input type="text" #lastName (keyup)="setLastName(lastName.value)"
+        placeholder="last"/>
+    </div>
+    <div>
+        <input type="text" #email (keyup)="setEmail(email.value)"
+        placeholder="email"/>
+    </div>
+    <div>
+        <input type="text" #password (keyup)="setPassword(password.value)"
+        placeholder="passowrd"/>
+    </div>
+    <div>
+        <button type="button" (click)="register()">Register</button>
+    </div>
+</div>

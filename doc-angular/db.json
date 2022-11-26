@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 0.5529472735552565,
+      "role": "doctor",
+      "firstName": "harry",
+      "lastName": "potter",
+      "email": "wiz@wiz.com",
+      "password": "chosenone",
+      "availability": null,
+      "appointments": null
+    },
+    {
+      "id": 0.3436998509682716,
+      "role": "doctor",
+      "firstName": "meredith",
+      "lastName": "grey",
+      "email": "mgm2grey.com",
+      "password": "extraordinary",
+      "availability": null,
+      "appointments": null
+    }
+  ]
+}
