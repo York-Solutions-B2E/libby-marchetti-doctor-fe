@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { Doctor } from 'src/app/data/CDoctor';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+
+import { User } from 'src/app/data/CUser';
 import { UiService } from 'src/app/services/ui.service';
 
 @Component({
@@ -7,22 +9,51 @@ import { UiService } from 'src/app/services/ui.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {  
+export class LoginComponent implements OnInit{ 
+  // @Input() doctor: Doctor | null = null;
+  loginForm!: FormGroup; 
   ui: UiService;
+  formBuilder: FormBuilder;
+  user: User;
+  //public doctor: Doctor[];
+  
+  // loginForm = new FormGroup({
+  //   email: new FormControl('', [Validators.required, Validators.email]),
+  //   password: new FormControl('', [Validators.required])
+  // })
 
-  constructor(ui: UiService, ){
+  constructor(ui: UiService, formBuilder: FormBuilder, user: User){
     this.ui = ui;
-    
+    this.formBuilder = formBuilder;   
+    this.user = user;
   }
 
-  // login():void {
-  //   //console.log(`login clicked`)
-  //   if((this.doctor.email === doctor.email) && 
-  //   (this.doctor.password && doctor.password))
-  // };
+  initForm () {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    })
+  }
 
-  register(): void {
-    console.log(`register clicked`)
-  };
+  login() {    
+    if(this.loginForm.valid){
+      if(this.user.email && this.user.password === this.loginForm.value){
+        this.ui.getUserById(this.user.id)
+        .subscribe({
+          next:(response) => {
+            console.log(this.loginForm.value)
+          }
+        })
+      } else {
+        console.log(`error while logging in`)
+      }
+    }     
+  }
+
+  
+
+  ngOnInit():void  {
+    this.initForm();
+  }
 
 }

@@ -6,16 +6,7 @@
       "lastName": "houser",
       "email": "dh@docsunite.org",
       "password": "12345",
-      "availablility": [],
-      "appointments": []
-    },
-    {
-      "id": 0.1464000428467711,
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": "",
-      "availability": null,
+      "availablility": null,
       "appointments": null
     },
     {
@@ -35,6 +26,24 @@
       "password": "nofaries",
       "availability": null,
       "appointments": null
+    }
+  ],
+  "users": [
+    {
+      "role": "Doctor",
+      "firstName": "lara",
+      "lastName": "croft",
+      "email": "raider@tomb.us",
+      "password": "raiditnow",
+      "id": 1
+    },
+    {
+      "role": "Doctor",
+      "firstName": "derek",
+      "lastName": "mcdreamy",
+      "email": "dreamymd@grey.com",
+      "password": "iamagodlyman",
+      "id": 2
     }
   ]
 }

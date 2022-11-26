@@ -1,15 +1,16 @@
 <h1>Login</h1>
-<div>
-    <label for="email">Email: </label>
-    <input id="email" #email type="text" 
-    placeholder="Email"  />
-</div>
-<div>
-    <label for="password">Password: </label>
-    <input id="password" #password type="password" 
-    placeholder="Password" >
-</div>
-<div>
-    <button type="button" (click)="register()">Register</button>
+<!-- <div [formGroup]?="loginForm"]> -->
+<form [formGroup]="loginForm">
+   
+        <label for="email">Email: </label>
+        <input id="email" type="text" 
+        placeholder="Email" formControlName="email" />
+   
+        <label for="password">Password: </label>
+        <input id="password" #password type="password" 
+        placeholder="Password" formControlName="password" />
+   <button type="button" (click)="login()">Login</button>
+</form>
+  <!-- <app-doctor *ngIf="doctor"></app-doctor> -->
     
-</div>
+

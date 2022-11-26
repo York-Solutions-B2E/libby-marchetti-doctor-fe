@@ -9,10 +9,12 @@
             password -y
             avail -?
             appt -?
+        - click register directed to dashboard
 
     - login
         - if user exists && email match && password match
             - get user by id
+        - click login directed to dashboard
     - logout
         - back to home
     - availability
