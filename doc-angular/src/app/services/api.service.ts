@@ -22,7 +22,7 @@ export class ApiService {
 
    getUsers(): void {
     this.http
-    .get<User[]>(`http://localhost:3000/users`)
+    .get<User[]>(`http://localhost:3000/users/`)
     .pipe(take(1))
     .subscribe(users => {
       console.log(users)
@@ -31,10 +31,22 @@ export class ApiService {
     })
    }
 
+   getUserById(id: number): void {
+    this.http
+    .get<User>(`http://localhost:3000/users/${id}`)
+    .pipe(take(1))
+    .subscribe(user => {
+      console.log(user)
+    })
+    
+   }
+
    addUser(user: User): void {
     this.http
     .post(`http://localhost:3000/users`, user)
     .pipe(take(1))
     .subscribe(() => this.getUsers())
    }
+
+
 }

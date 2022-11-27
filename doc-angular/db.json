@@ -19,6 +19,17 @@
       "password": "extraordinary",
       "availability": null,
       "appointments": null
-    }
+    },
+    [
+      {
+        "role": "patient",
+        "firstName": "Steve",
+        "lastName": "Johnson",
+        "email": "steve@email.com",
+        "password": "1234",
+        "availability": null,
+        "appointments": null
+      }
+    ]
   ]
 }

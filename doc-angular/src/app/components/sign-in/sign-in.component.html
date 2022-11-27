@@ -1,1 +1,22 @@
-<p>sign-in works!</p>
+<p>login</p>
+<form [formGroup]="loginForm" (submit)="onSubmit()">
+    <div>
+        <label for="email">Email: </label>
+        <input id="email" type="text" 
+        formControlName="email"/>
+        <!-- <small>email is required</small> -->
+    </div>
+    <small *ngIf="loginForm.controls['email'].dirty 
+    && loginForm.hasError('required', 'email')"> email is required</small>
+    <div>
+        <label for="password">Password: </label>
+        <input id="password" type="text" 
+        formControlName="password"/>
+       
+    </div>
+     <small *ngIf="loginForm.controls['password'].dirty 
+    && loginForm.hasError('required', 'password')"> password is required</small>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</form>
