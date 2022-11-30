@@ -86,6 +86,16 @@ export class ApiService {
     this.doctor = user.doctor;
   }
 
+  public logout(): void {
+    this.showRegister = false;
+    this.showLogin = true;
+    this.loading = false;
+    this.doctor = false;
+    this.userId = undefined;
+    this.username = undefined;  
+    this.appointments = [];
+  }
+
   public tryLogin(username: string, password: string) : void {
     // filters through users[] to find a match
     this.http.get<User[]>(`${this.usersURL}?username=${username}&password=${password}`)
@@ -105,7 +115,15 @@ export class ApiService {
     })
   }
 
+  public addUser(user: User): void {
+    this.http
+    .post<User>(`${this.usersURL}`, user)
+    .pipe(take(1))
+    .subscribe(() => {
+      console.log(user)
+    })
 
+  }
 
       
     
