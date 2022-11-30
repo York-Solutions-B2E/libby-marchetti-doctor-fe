@@ -104,7 +104,7 @@ export class ApiService {
     .pipe(take(1))
     .subscribe({
       next: ()=> {
-
+        this.loadingAppts();
       },
       error: err => {
         this.showError(`Oops, something went wrong`)
