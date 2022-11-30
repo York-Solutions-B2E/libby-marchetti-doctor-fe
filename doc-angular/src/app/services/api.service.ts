@@ -1,52 +1,117 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { Observable, Subject, take } from 'rxjs';
-
+import { Inject, Injectable } from '@angular/core';
+import { take } from 'rxjs';
 import { User } from '../data/user';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  users: User[] = [];
-  usersSubject: Subject<User[]> = new Subject();
-  http: HttpClient;
+  // slots are used as an 8 hr day
+  // 1 slot is a 1 hr appt
 
-  constructor(http: HttpClient) {
-    this.http = http;
-    this.getUsers();
-   }
+  // base http for user and appts
+  // cuz i be lazy
+  private usersURL = 'http://localhost:3000/users';
+  private apptURL = 'http://localhost:3000/appointments';
 
-   getUsers(): void {
-    this.http
-    .get<User[]>(`http://localhost:3000/users/`)
-    .pipe(take(1))
-    .subscribe(users => {
-      console.log(users)
-      this.users = users
-      this.usersSubject.next(this.users)
-    })
-   }
+  // state management
+  // private to control when/what/how accessed
 
-   getUserById(id: number): void {
-    this.http
-    .get<User>(`http://localhost:3000/users/${id}`)
-    .pipe(take(1))
-    .subscribe(user => {
-      console.log(user)
-    })
+  // set to booleans
+  // either logging in or registering
+  // loading for when waiting on 'backend'
+  private showRegister = false;
+  private showLogin = true;
+  private loading = false;
+  private doctor = false;
+
+  private userId: number | undefined;
+  private username: string | undefined;  
+  private appointments = [];
+
+  constructor(
+    private http: HttpClient, 
     
-   }
+    private snackBar: MatSnackBar ) {}
 
-   addUser(user: User): void {
+  // methods for components to call for the vars
+  // because they're private
+  public getShowRegister(): boolean {
+    return this.showRegister;
+  }
+
+  public getShowLogin(): boolean {
+    return this.showLogin;
+  }
+
+  public getLoading(): boolean {
+    return this.loading;
+  }
+
+  public getUsername(): string | undefined {
+    return this.username;
+  }
+
+  public startRegister(){
+    this.showLogin = false;
+    this.showRegister = true;
+  }
+
+  public startLogin() {
+    this.showLogin = true;
+    this.showRegister = false;
+  }
+
+  // === HTTP METHODS ===
+  public getAllUsers(): void {
     this.http
-    .post(`http://localhost:3000/users`, user)
+    .get(this.usersURL)
+  }
+
+  private showError(message: string): void {    
+      this.snackBar.open(message, undefined, {
+        // time in miliseconds boooooo
+        duration: 2000
+      });    
+  }
+
+  private loginValid(user: User): void {
+    this.showLogin = false;
+    this.userId = user.id;
+    this.username = user.username;
+    this.doctor = user.doctor;
+  }
+
+  public tryLogin(username: string, password: string) : void {
+    // filters through users[] to find a match
+    this.http.get<User[]>(`${this.usersURL}?username=${username}&password=${password}`)
+    // do once and unsubscribe
     .pipe(take(1))
-    .subscribe(() => this.getUsers())
-   }
+    .subscribe({
+      next: users => {
+        if(users.length !==1){
+          this.showError('Invalid username and/or password');
+          return;
+        }
+        this.loginValid(users[0]);
+      },      
+      error: err => {
+        this.showError('Oops something went wrong');
+      }
+    })
+  }
+
+
+
+      
+    
+  
+
+  
 
 
 }

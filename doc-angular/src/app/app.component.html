@@ -1,5 +1,3 @@
-<h1>{{title}}</h1>
-
-<!-- <app-register></app-register> -->
-<app-sign-in></app-sign-in>
-<app-users></app-users>
+<app-login *ngIf="api.getShowLogin()"></app-login>
+<app-register *ngIf="api.getShowRegister()"></app-register>
+<app-header *ngIf="api.getUsername() !== undefined"></app-header>

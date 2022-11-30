@@ -1,35 +1,34 @@
 {
   "users": [
-    {
-      "id": 0.5529472735552565,
-      "role": "doctor",
-      "firstName": "harry",
-      "lastName": "potter",
-      "email": "wiz@wiz.com",
-      "password": "chosenone",
-      "availability": null,
-      "appointments": null
-    },
-    {
-      "id": 0.3436998509682716,
-      "role": "doctor",
-      "firstName": "meredith",
-      "lastName": "grey",
-      "email": "mgm2grey.com",
-      "password": "extraordinary",
-      "availability": null,
-      "appointments": null
-    },
-    [
       {
-        "role": "patient",
-        "firstName": "Steve",
-        "lastName": "Johnson",
-        "email": "steve@email.com",
-        "password": "1234",
-        "availability": null,
-        "appointments": null
+          "id": 0,
+          "username": "mad",
+          "password": "1234",
+          "doctor": false
+      },
+      {
+          "id": 1,
+          "username": "lib",
+          "password": "2345",
+          "doctor": true
       }
-    ]
+  ],
+  "appointments": [
+      {
+          "id": 0,
+          "docotrId": 1,
+          "patientId": null,
+          "date": "2002-11-30",
+          "slot": 0
+      },
+      
+      {
+          "id": 1,
+          "docotrId": 1,
+          "patientId": 0,
+          "date": "2002-11-30",
+          
+          "slot": 1
+      }
   ]
 }
