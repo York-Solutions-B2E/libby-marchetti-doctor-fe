@@ -4,6 +4,7 @@ import { take } from 'rxjs';
 import { User } from '../data/user';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Appointment } from '../data/appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,10 @@ export class ApiService {
   // 1 slot is a 1 hr appt
 
   // base http for user and appts
-  // cuz i be lazy
+  
   private usersURL = 'http://localhost:3000/users';
   private apptURL = 'http://localhost:3000/appointments';
-
-  // state management
-  // private to control when/what/how accessed
-
-  // set to booleans
-  // either logging in or registering
-  // loading for when waiting on 'backend'
+  
   private showRegister = false;
   private showLogin = true;
   private loading = false;
@@ -31,7 +26,7 @@ export class ApiService {
 
   private userId: number | undefined;
   private username: string | undefined;  
-  private appointments = [];
+  private appointments: Appointment[] = [];
 
   constructor(
     private http: HttpClient,     
@@ -44,8 +39,6 @@ export class ApiService {
       }
     }
 
-  // methods for components to call for the vars
-  // because they're private
   public getShowRegister(): boolean {
     return this.showRegister;
   }
@@ -60,6 +53,10 @@ export class ApiService {
 
   public getUsername(): string | undefined {
     return this.username;
+  }
+
+  public getAppointments(): Appointment[] {
+    return this.appointments;
   }
 
   public startRegister(){
@@ -79,8 +76,7 @@ export class ApiService {
   }
 
   private showError(message: string): void {    
-      this.snackBar.open(message, undefined, {
-        // time in miliseconds boooooo
+      this.snackBar.open(message, undefined, {        
         duration: 2000
       });    
   }

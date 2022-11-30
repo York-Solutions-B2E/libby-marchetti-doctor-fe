@@ -17,14 +17,16 @@ import { DoctorsComponent } from './components/doctors/doctors.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
 
 @NgModule({
   declarations: [
     AppComponent,    
     RegisterComponent,   
     DoctorsComponent,
-   HeaderComponent,
-   LoginComponent
+    HeaderComponent,
+    LoginComponent,
+    AppointmentComponent
   ],
   imports: [
     FormsModule,

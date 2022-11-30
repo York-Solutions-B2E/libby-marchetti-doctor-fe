@@ -1,34 +1,38 @@
 {
   "users": [
-      {
-          "id": 0,
-          "username": "mad",
-          "password": "1234",
-          "doctor": false
-      },
-      {
-          "id": 1,
-          "username": "lib",
-          "password": "2345",
-          "doctor": true
-      }
+    {
+      "id": 0,
+      "username": "mad",
+      "password": "1234",
+      "doctor": false
+    },
+    {
+      "id": 1,
+      "username": "lib",
+      "password": "2345",
+      "doctor": true
+    },
+    {
+      "id": 3,
+      "username": "Bo",
+      "password": "345",
+      "doctor": false
+    }
   ],
   "appointments": [
-      {
-          "id": 0,
-          "docotrId": 1,
-          "patientId": null,
-          "date": "2002-11-30",
-          "slot": 0
-      },
-      
-      {
-          "id": 1,
-          "docotrId": 1,
-          "patientId": 0,
-          "date": "2002-11-30",
-          
-          "slot": 1
-      }
+    {
+      "id": 0,
+      "docotrId": 1,
+      "patientId": null,
+      "date": "2002-11-30",
+      "slot": 0
+    },
+    {
+      "id": 1,
+      "docotrId": 1,
+      "patientId": 0,
+      "date": "2002-11-30",
+      "slot": 1
+    }
   ]
 }
