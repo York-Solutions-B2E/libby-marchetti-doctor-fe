@@ -23,6 +23,7 @@ export class ApiService {
   private showLogin = true;
   private loading = false;
   private doctor = false;
+  private newAppt = false;
 
   private userId: number | undefined;
   private username: string | undefined;  
@@ -63,12 +64,62 @@ export class ApiService {
     return this.userId !== undefined && this.doctor;
   }
 
-  public startRegister(){
+  public getNewAppt(): boolean {
+    return this.newAppt;
+  }
+
+  public startNewAppt(): void {
+    this.newAppt = true;
+  }
+
+  public cancelNewAppt(): void {
+    this.newAppt = false;
+  }
+
+  public schedNewAppt(date: Date, slot: number): void {
+    
+    slot--
+    if(slot < 0 || slot > 8 || slot % 1 !== 0){
+      this.showError(`Slot is invalid`)
+      return
+    }
+    if(date < new Date()){
+      this.showError(`Date is invalid`)
+      return
+    }
+
+    if (this.userId === undefined){
+      this.showError(`You're not logged in`)
+      return
+    }
+
+    this.newAppt = false;
+    this.http.post(`${this.apptURL}`, new Appointment(
+      null,
+      this.userId,
+      null,
+      date,
+      slot)
+    )
+    .pipe(take(1))
+    .subscribe({
+      next: ()=> {
+
+      },
+      error: err => {
+        this.showError(`Oops, something went wrong`)
+      }
+    })
+  }
+
+  
+
+  public startRegister(): void {
     this.showLogin = false;
     this.showRegister = true;
   }
 
-  public startLogin() {
+  public startLogin(): void {
     this.showLogin = true;
     this.showRegister = false;
   }

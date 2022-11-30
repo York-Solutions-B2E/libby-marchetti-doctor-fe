@@ -12,7 +12,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+
 
 import { RegisterComponent } from './components/register/register.component';
 import { DoctorsComponent } from './components/doctors/doctors.component';
@@ -45,7 +48,9 @@ import { MakeAppointmentComponent } from './components/make-appointment/make-app
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
