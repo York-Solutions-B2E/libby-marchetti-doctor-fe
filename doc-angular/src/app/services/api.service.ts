@@ -59,6 +59,10 @@ export class ApiService {
     return this.appointments;
   }
 
+  public getDoctor(): boolean {
+    return this.userId !== undefined && this.doctor;
+  }
+
   public startRegister(){
     this.showLogin = false;
     this.showRegister = true;
@@ -87,7 +91,8 @@ export class ApiService {
     this.username = user.username;
     this.doctor = user.doctor;
     localStorage.setItem('username', user.username);
-    localStorage.setItem('password', user.password)
+    localStorage.setItem('password', user.password);
+    this.loadingAppts();
   }
 
   public logout(): void {
@@ -99,6 +104,29 @@ export class ApiService {
     this.username = undefined;  
     this.appointments = [];
     localStorage.clear();
+  }
+
+  private loadingAppts(): void {
+    this.loading = true;
+    if (this.doctor){
+    this.http.get<Appointment[]>(`${this.apptURL}?doctorId=${this.userId}`)
+    .pipe(take(1))
+    .subscribe({
+      next: appointments => {
+        console.log(appointments); 
+        this.appointments = appointments;
+        this.loading = false;
+      },
+      error: () => {
+        this.showError(`Oops somethin wrong`);
+        this.loading = false;
+      }
+    })
+    } else {
+      this.showError(`Patient appts not implemented`);
+      this.loading = false;
+
+    }
   }
 
   public tryLogin(username: string, password: string) : void {

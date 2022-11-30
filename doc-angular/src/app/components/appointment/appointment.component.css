@@ -1,0 +1,19 @@
+/* .container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    align-items: center;
+} */
+
+.card{
+    /* margin-top: 1rem; */
+    width: 300px;
+    /* height: 150px; */
+    margin-left:1rem;
+    
+}
+
+.card-title {
+    color:springgreen;
+}

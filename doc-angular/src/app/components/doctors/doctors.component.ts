@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { User } from 'src/app/data/user';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+
 
 
 @Component({
@@ -10,7 +12,10 @@ import { User } from 'src/app/data/user';
 })
 export class DoctorsComponent{
   
-  constructor(public api: ApiService){}
+  constructor(public api: ApiService,
+    ){}
+
+  
 
   
 

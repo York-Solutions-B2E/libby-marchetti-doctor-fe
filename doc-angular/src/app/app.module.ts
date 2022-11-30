@@ -11,6 +11,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { RegisterComponent } from './components/register/register.component';
 import { DoctorsComponent } from './components/doctors/doctors.component';
@@ -18,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
+import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
     DoctorsComponent,
     HeaderComponent,
     LoginComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    MakeAppointmentComponent
   ],
   imports: [
     FormsModule,
@@ -39,7 +43,9 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
     MatSnackBarModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
