@@ -1,13 +1,11 @@
-<div class="doc-container">
+<div class="pat-container">
     <button mat-button 
     color="primary" 
-    class="doc-cell"
+    class="pat-cell"
     (click)="api.startNewAppt()"><mat-icon>event_available</mat-icon></button>
-    <div class="app-container doc-cell">
+    <div class="app-container pat-cell">
         <h2 *ngIf="api.getLoading()">Loading your calendar</h2>
         <app-make-appointment *ngIf="api.getNewAppt()"></app-make-appointment>
         <app-appointment *ngFor="let appointment of api.getAppointments()" [appointment]="appointment"></app-appointment>
     </div>   
 </div>
-
-

@@ -1,0 +1,18 @@
+.pat-container {
+    display: table;
+}
+.pat-cell {
+    display: table-cell;     
+}
+.app-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+    align-items: center;
+}
+
+
+
+
+

@@ -24,6 +24,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
+import { PatientComponent } from './components/patient/patient.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MakeAppointmentComponent } from './components/make-appointment/make-app
     HeaderComponent,
     LoginComponent,
     AppointmentComponent,
-    MakeAppointmentComponent
+    MakeAppointmentComponent,
+    PatientComponent
   ],
   imports: [
     FormsModule,

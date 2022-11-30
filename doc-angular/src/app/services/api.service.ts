@@ -24,6 +24,7 @@ export class ApiService {
   private loading = false;
   private doctor = false;
   private newAppt = false;
+  private patient = false;
 
   private userId: number | undefined;
   private username: string | undefined;  
@@ -63,6 +64,9 @@ export class ApiService {
   public getDoctor(): boolean {
     return this.userId !== undefined && this.doctor;
   }
+  public getPatient(): boolean {
+    return this.userId !== undefined && !this.doctor;
+   }
 
   public getNewAppt(): boolean {
     return this.newAppt;
@@ -76,8 +80,7 @@ export class ApiService {
     this.newAppt = false;
   }
 
-  public schedNewAppt(date: Date, slot: number): void {
-    
+  public schedNewAppt(date: Date, slot: number): void {    
     slot--
     if(slot < 0 || slot > 8 || slot % 1 !== 0){
       this.showError(`Slot is invalid`)
@@ -87,19 +90,16 @@ export class ApiService {
       this.showError(`Date is invalid`)
       return
     }
-
     if (this.userId === undefined){
       this.showError(`You're not logged in`)
       return
     }
-
     this.newAppt = false;
-    this.http.post(`${this.apptURL}`, new Appointment(
-      null,
-      this.userId,
-      null,
+    this.http.post<Appointment>(`${this.apptURL}`, {      
+      doctorId: this.userId,
+      patientId: null,
       date,
-      slot)
+      slot}
     )
     .pipe(take(1))
     .subscribe({
@@ -110,9 +110,22 @@ export class ApiService {
         this.showError(`Oops, something went wrong`)
       }
     })
-  }
+  }  
 
-  
+  public deleteAppt(id: number): void {
+    this.http
+    .delete(`${this.apptURL}/${id}`)
+    .pipe(take(1))
+    .subscribe({
+      next: () => {
+        this.loadingAppts();
+      },
+      error: () => {
+        this.showError(`Oops, something went wrong`)
+      }
+    })
+
+  }
 
   public startRegister(): void {
     this.showLogin = false;
@@ -123,8 +136,7 @@ export class ApiService {
     this.showLogin = true;
     this.showRegister = false;
   }
-
-  // === HTTP METHODS ===
+  
   public getAllUsers(): void {
     this.http
     .get(this.usersURL)
@@ -173,11 +185,12 @@ export class ApiService {
         this.loading = false;
       }
     })
-    } else {
-      this.showError(`Patient appts not implemented`);
-      this.loading = false;
+    } 
+    // else {
+    //   this.showError(`Patient appts not implemented`);
+    //   this.loading = false;
 
-    }
+    // }
   }
 
   public tryLogin(username: string, password: string) : void {
@@ -192,7 +205,6 @@ export class ApiService {
           return;
         }
         this.loginValid(users[0]);
-
       },      
       error: err => {
         this.showError('Oops something went wrong');
