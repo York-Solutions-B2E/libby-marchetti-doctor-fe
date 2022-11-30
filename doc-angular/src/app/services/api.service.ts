@@ -34,9 +34,15 @@ export class ApiService {
   private appointments = [];
 
   constructor(
-    private http: HttpClient, 
-    
-    private snackBar: MatSnackBar ) {}
+    private http: HttpClient,     
+    private snackBar: MatSnackBar ) {
+      const username = localStorage.getItem('username')
+      const password = localStorage.getItem('password')
+      if(username !== null && password !== null){
+        this.tryLogin(username, password)
+        
+      }
+    }
 
   // methods for components to call for the vars
   // because they're private
@@ -84,6 +90,8 @@ export class ApiService {
     this.userId = user.id;
     this.username = user.username;
     this.doctor = user.doctor;
+    localStorage.setItem('username', user.username);
+    localStorage.setItem('password', user.password)
   }
 
   public logout(): void {
@@ -94,6 +102,7 @@ export class ApiService {
     this.userId = undefined;
     this.username = undefined;  
     this.appointments = [];
+    localStorage.clear();
   }
 
   public tryLogin(username: string, password: string) : void {
@@ -108,6 +117,7 @@ export class ApiService {
           return;
         }
         this.loginValid(users[0]);
+
       },      
       error: err => {
         this.showError('Oops something went wrong');
