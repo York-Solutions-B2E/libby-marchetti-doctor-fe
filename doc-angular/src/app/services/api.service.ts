@@ -154,6 +154,23 @@ export class ApiService {
     })
   }
 
+  public cancelAppt(appointment: Appointment): void {
+    this.http
+    .put(`${this.apptURL}/${appointment.id}`, {
+      ...appointment,
+      patientId: null
+    })
+    .pipe(take(1))
+    .subscribe({
+      next: () => {
+        this.loadingAppts();
+      },
+      error: () => {
+        this.showError(`Unable to cancel appointment`)
+      }
+    })
+  }
+
   private loginValid(user: User): void {
     this.showLogin = false;
     this.userId = user.id;

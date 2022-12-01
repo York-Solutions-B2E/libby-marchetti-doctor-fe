@@ -1,6 +1,6 @@
 <div class="app-container pat-cell">
     <h2 *ngIf="api.getLoading()">Loading your scheuled appointments</h2>        
-    <app-appointment *ngFor="let appointment of api.getPatientBooked()" [appointment]="appointment"></app-appointment>
+    <app-booked-appointment *ngFor="let appointment of api.getPatientBooked()" [appointment]="appointment"></app-booked-appointment>
 </div>   
 <div class="app-container pat-cell">
     <h2 *ngIf="api.getLoading()">Loading available openings</h2>        

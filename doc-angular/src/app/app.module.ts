@@ -26,6 +26,7 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
 import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
 import { PatientComponent } from './components/patient/patient.component';
 import { AvailabilityComponent } from './components/availability/availability.component';
+import { BookedAppointmentComponent } from './components/booked-appointment/booked-appointment.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AvailabilityComponent } from './components/availability/availability.co
     AppointmentComponent,
     MakeAppointmentComponent,
     PatientComponent,
-    AvailabilityComponent
+    AvailabilityComponent,
+    BookedAppointmentComponent
   ],
   imports: [
     FormsModule,

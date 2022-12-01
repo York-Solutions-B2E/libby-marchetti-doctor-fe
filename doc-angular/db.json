@@ -39,14 +39,14 @@
     },
     {
       "doctorId": 1,
-      "patientId": null,
+      "patientId": 3,
       "date": "2022-12-28T06:00:00.000Z",
       "slot": 3,
       "id": 5
     },
     {
       "doctorId": 1,
-      "patientId": 3,
+      "patientId": null,
       "date": "2022-12-24T06:00:00.000Z",
       "slot": 2,
       "id": 6
