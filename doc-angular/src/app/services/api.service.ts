@@ -206,6 +206,28 @@ export class ApiService {
       }
     })
   }
+
+  public startRegister(): void {
+    this.showLogin = false;
+    this.showRegister = true;
+  }
+
+  public startLogin(): void {
+    this.showLogin = true;
+    this.showRegister = false;
+  }
+  
+  public getAllUsers(): void {
+    this.http
+    .get(this.usersURL)
+  }
+
+  private showError(message: string): void {    
+      this.snackBar.open(message, undefined, {        
+        duration: 2000
+      });    
+  }
+
   public bookAppt(appointment: Appointment): void {
     this.http
     .put(`${this.apptURL}/${appointment.id}`, {
@@ -239,6 +261,28 @@ export class ApiService {
       }
     })
   }
+
+  private loginValid(user: User): void {
+    this.showLogin = false;
+    this.userId = user.id;
+    this.username = user.username;
+    this.doctor = user.doctor;
+    localStorage.setItem('username', user.username);
+    localStorage.setItem('password', user.password);
+    this.loadingAppts();
+  }
+
+  public logout(): void {
+    this.showRegister = false;
+    this.showLogin = true;
+    this.loading = false;
+    this.doctor = false;
+    this.userId = undefined;
+    this.username = undefined;  
+    this.appointments = [];
+    localStorage.clear();
+  }
+
   private loadDocAppts(): void {
     this.http.get<Appointment[]>(`${this.apptURL}?doctorId=${this.userId}`)
     .pipe(take(1))

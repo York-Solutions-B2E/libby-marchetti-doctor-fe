@@ -17,12 +17,6 @@
       "username": "Bo",
       "password": "345",
       "doctor": false
-    },
-    {
-      "id": 4,
-      "username": "Ty",
-      "password": "456",
-      "doctor": true
     }
   ],
   "appointments": [
