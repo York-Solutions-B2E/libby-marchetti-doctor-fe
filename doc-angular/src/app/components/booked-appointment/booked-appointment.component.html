@@ -5,8 +5,7 @@
       <mat-card-subtitle>{{appointment?.date | date: 'E MM/dd' }} Slot: {{appointment === undefined? '' : appointment.slot + 1}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions align="end">
-      <button mat-button color="warn" (click)="appointment && api.cancelAppt(appointment)"><mat-icon>eject</mat-icon></button>
-      <!-- <button mat-button color="basic" (click)="appointment && api.deleteAppt(appointment.id)"><mat-icon>delete</mat-icon></button> -->
+      <button mat-button color="warn" (click)="appointment && api.cancelAppt(appointment)"><mat-icon>eject</mat-icon></button>      
     </mat-card-actions>
   </mat-card>
 </div>

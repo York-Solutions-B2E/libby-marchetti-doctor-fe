@@ -12,13 +12,6 @@ import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog
 })
 export class DoctorsComponent{
   
-  constructor(public api: ApiService,
-    ){}
-
-  
-
-  
-
-  
+  constructor(public api: ApiService){}
 
 }

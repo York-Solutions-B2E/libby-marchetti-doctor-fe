@@ -34,6 +34,7 @@ export class ApiService {
       }
     }
 
+  // === Getter Methods ===
   public getShowRegister(): boolean {
     return this.showRegister;
   }
@@ -62,6 +63,97 @@ export class ApiService {
     return this.newAppt;
   }
 
+  getPatientBooked(): Appointment[] {
+    return this.bookedAppts
+  }
+
+
+
+  // === Register ===
+  public startRegister(): void {
+    this.showLogin = false;
+    this.showRegister = true;
+  }
+  public tryRegister(username: string, password: string, doctor: boolean): void {
+    this.http.get<User[]>(`${this.usersURL}?username=${username}`)
+      .pipe(take(1))
+      .subscribe({
+        next: users => {
+          if(users.length > 0){
+            this.showError(`Username is taken`)
+            return
+          }
+          this.register(username, password, doctor)
+        },
+        error: () => {
+          this.showError(`Unable to register`)
+        }
+      })
+    
+  }
+  public register(username: string, password: string, doctor: boolean): void {
+    this.http
+      .post(`${this.usersURL}`, {
+        id: null,
+        username,
+        password,
+        doctor
+      })
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.tryLogin(username, password);
+        },
+        error: () => {
+          this.showError(`Unable to register`);
+        }
+       })
+  }
+
+  // === Login ===
+  public startLogin(): void {
+    this.showLogin = true;
+    this.showRegister = false;
+  }
+  private loginValid(user: User): void {
+    this.showLogin = false;
+    this.showRegister = false;
+    this.userId = user.id;
+    this.username = user.username;
+    this.doctor = user.doctor;
+    localStorage.setItem('username', user.username);
+    localStorage.setItem('password', user.password);
+    this.loadingAppts();
+  }
+
+  public logout(): void {
+    this.showRegister = false;
+    this.showLogin = true;
+    this.loading = false;
+    this.doctor = false;
+    this.userId = undefined;
+    this.username = undefined;  
+    this.appointments = [];
+    localStorage.clear();
+  }
+  public tryLogin(username: string, password: string) : void {    
+    this.http.get<User[]>(`${this.usersURL}?username=${username}&password=${password}`)    
+    .pipe(take(1))
+    .subscribe({
+      next: users => {
+        if(users.length !==1){
+          this.showError('Invalid username and/or password');
+          return;
+        }
+        this.loginValid(users[0]);
+      },      
+      error: err => {
+        this.showError('Oops something went wrong');
+      }
+    })
+  }
+
+  // === Appointments ===  
   public startNewAppt(): void {
     this.newAppt = true;
   }
@@ -69,7 +161,6 @@ export class ApiService {
   public cancelNewAppt(): void {
     this.newAppt = false;
   }
-
   public schedNewAppt(date: Date, slot: number): void {    
     slot--
     if(slot < 0 || slot > 8 || slot % 1 !== 0){
@@ -115,65 +206,6 @@ export class ApiService {
       }
     })
   }
-
-  public startRegister(): void {
-    this.showLogin = false;
-    this.showRegister = true;
-  }
-
-  public startLogin(): void {
-    this.showLogin = true;
-    this.showRegister = false;
-  }
-  
-  public tryRegister(username: string, password: string, doctor: boolean): void {
-    this.http.get<User[]>(`${this.usersURL}?username=${username}`)
-      .pipe(take(1))
-      .subscribe({
-        next: users => {
-          if(users.length > 0){
-            this.showError(`Username is taken`)
-            return
-          }
-          this.register(username, password, doctor)
-        },
-        error: () => {
-          this.showError(`Unable to register`)
-        }
-      })
-    
-  }
-
-  public register(username: string, password: string, doctor: boolean): void {
-    this.http
-      .post(`${this.usersURL}`, {
-        id: null,
-        username,
-        password,
-        doctor
-      })
-      .pipe(take(1))
-      .subscribe({
-        next: () => {
-          this.tryLogin(username, password);
-        },
-        error: () => {
-          this.showError(`Unable to register`);
-        }
-       })
-  }
-
-  public getAllUsers(): void {
-    this.http
-    .get(this.usersURL)
-  }
-
-  private showError(message: string): void {    
-      this.snackBar.open(message, undefined, {        
-        duration: 2000
-      });    
-  }
-
   public bookAppt(appointment: Appointment): void {
     this.http
     .put(`${this.apptURL}/${appointment.id}`, {
@@ -207,29 +239,6 @@ export class ApiService {
       }
     })
   }
-
-  private loginValid(user: User): void {
-    this.showLogin = false;
-    this.showRegister = false;
-    this.userId = user.id;
-    this.username = user.username;
-    this.doctor = user.doctor;
-    localStorage.setItem('username', user.username);
-    localStorage.setItem('password', user.password);
-    this.loadingAppts();
-  }
-
-  public logout(): void {
-    this.showRegister = false;
-    this.showLogin = true;
-    this.loading = false;
-    this.doctor = false;
-    this.userId = undefined;
-    this.username = undefined;  
-    this.appointments = [];
-    localStorage.clear();
-  }
-
   private loadDocAppts(): void {
     this.http.get<Appointment[]>(`${this.apptURL}?doctorId=${this.userId}`)
     .pipe(take(1))
@@ -283,39 +292,13 @@ export class ApiService {
       this.loadPatBookedAppts();
     }    
   }
-
-  public tryLogin(username: string, password: string) : void {    
-    this.http.get<User[]>(`${this.usersURL}?username=${username}&password=${password}`)    
-    .pipe(take(1))
-    .subscribe({
-      next: users => {
-        if(users.length !==1){
-          this.showError('Invalid username and/or password');
-          return;
-        }
-        this.loginValid(users[0]);
-      },      
-      error: err => {
-        this.showError('Oops something went wrong');
-      }
-    })
-  }
-
-  public addUser(user: User): void {
-    this.http
-    .post<User>(`${this.usersURL}`, user)
-    .pipe(take(1))
-    .subscribe(() => {
-      console.log(user)
-    })
-
-  }
-
-  getPatientBooked(): Appointment[] {
-    return this.bookedAppts
-  }
-
   
+  // === Util ===
+  private showError(message: string): void {    
+      this.snackBar.open(message, undefined, {        
+        duration: 2000
+      });    
+  }
 
 
 }
