@@ -5,8 +5,8 @@
         <mat-form-field appearance="fill">        
         <input matInput type="password" placeholder="Password" [(ngModel)]="password" >
     </mat-form-field>
-    <button mat-flat-button color="primary" class="login-input">I'm a doctor</button>
-    <button mat-flat-button color="primary" class="login-input" (click)="api.startRegister()">not a doctor</button>
-    <button mat-flat-button color="accent" class="login-input" (click)="api.startLogin()">Create Account</button>
+    <button mat-flat-button color="primary" class="login-input" (click)="api.tryRegister(username, password, true)">I'm a doctor</button>
+    <button mat-flat-button color="primary" class="login-input" (click)="api.tryRegister(username, password, false)">not a doctor</button>
+    <!-- <button mat-flat-button color="accent" class="login-input" (click)="api.startLogin()">Create Account</button> -->
     <button mat-flat-button color="accent" class="login-input" (click)="api.startLogin()">Have an account?</button>
 </div>

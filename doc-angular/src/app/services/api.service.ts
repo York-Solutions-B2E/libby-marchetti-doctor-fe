@@ -126,6 +126,43 @@ export class ApiService {
     this.showRegister = false;
   }
   
+  public tryRegister(username: string, password: string, doctor: boolean): void {
+    this.http.get<User[]>(`${this.usersURL}?username=${username}`)
+      .pipe(take(1))
+      .subscribe({
+        next: users => {
+          if(users.length > 0){
+            this.showError(`Username is taken`)
+            return
+          }
+          this.register(username, password, doctor)
+        },
+        error: () => {
+          this.showError(`Unable to register`)
+        }
+      })
+    
+  }
+
+  public register(username: string, password: string, doctor: boolean): void {
+    this.http
+      .post(`${this.usersURL}`, {
+        id: null,
+        username,
+        password,
+        doctor
+      })
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.tryLogin(username, password);
+        },
+        error: () => {
+          this.showError(`Unable to register`);
+        }
+       })
+  }
+
   public getAllUsers(): void {
     this.http
     .get(this.usersURL)
@@ -173,6 +210,7 @@ export class ApiService {
 
   private loginValid(user: User): void {
     this.showLogin = false;
+    this.showRegister = false;
     this.userId = user.id;
     this.username = user.username;
     this.doctor = user.doctor;
