@@ -137,9 +137,10 @@ export class ApiService {
       });    
   }
 
-  public bookAppt(id: number): void {
+  public bookAppt(appointment: Appointment): void {
     this.http
-    .put(`${this.apptURL}/${id}`, {
+    .put(`${this.apptURL}/${appointment.id}`, {
+      ...appointment,
       patientId: this.userId
     })
     .pipe(take(1))
