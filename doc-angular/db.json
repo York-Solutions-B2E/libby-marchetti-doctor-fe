@@ -35,25 +35,32 @@
       "slot": 1
     },
     {
-      "id": 2,
-      "doctorId": 1,
-      "patientId": null,
-      "date": "2022-12-15T06:00:00.000Z",
-      "slot": 1
+      "id": 4
     },
     {
-      "id": 3,
       "doctorId": 1,
       "patientId": null,
-      "date": "2022-12-16T06:00:00.000Z",
-      "slot": 3
+      "date": "2022-12-28T06:00:00.000Z",
+      "slot": 3,
+      "id": 5
     },
     {
-      "id": 4,
       "doctorId": 1,
+      "patientId": null,
+      "date": "2022-12-24T06:00:00.000Z",
+      "slot": 2,
+      "id": 6
+    },
+    {
       "patientId": 3,
-      "date": "2022-12-01T06:00:00.000Z",
-      "slot": 2
+      "id": 7
+    },
+    {
+      "doctorId": 1,
+      "patientId": null,
+      "date": "2022-12-13T06:00:00.000Z",
+      "slot": 7,
+      "id": 8
     }
   ]
 }

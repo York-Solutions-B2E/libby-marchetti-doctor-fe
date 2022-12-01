@@ -10,24 +10,17 @@ import { Appointment } from '../data/appointment';
   providedIn: 'root'
 })
 export class ApiService {
-
-  // slots are used as an 8 hr day
-  // 1 slot is a 1 hr appt
-
-  // base http for user and appts
-  
+    
   private usersURL = 'http://localhost:3000/users';
-  private apptURL = 'http://localhost:3000/appointments';
-  
+  private apptURL = 'http://localhost:3000/appointments';  
   private showRegister = false;
   private showLogin = true;
   private loading = false;
   private doctor = false;
-  private newAppt = false;
-  private patient = false;
-
+  private newAppt = false;  
   private userId: number | undefined;
   private username: string | undefined;  
+  private bookedAppts: Appointment [] = [];
   private appointments: Appointment[] = [];
 
   constructor(
@@ -64,10 +57,7 @@ export class ApiService {
   public getDoctor(): boolean {
     return this.userId !== undefined && this.doctor;
   }
-  public getPatient(): boolean {
-    return this.userId !== undefined && !this.doctor;
-   }
-
+  
   public getNewAppt(): boolean {
     return this.newAppt;
   }
@@ -124,7 +114,6 @@ export class ApiService {
         this.showError(`Oops, something went wrong`)
       }
     })
-
   }
 
   public startRegister(): void {
@@ -148,6 +137,22 @@ export class ApiService {
       });    
   }
 
+  public bookAppt(id: number): void {
+    this.http
+    .put(`${this.apptURL}/${id}`, {
+      patientId: this.userId
+    })
+    .pipe(take(1))
+    .subscribe({
+      next: () => {
+        this.loadingAppts();
+      },
+      error: () => {
+        this.showError(`Failed to book appointment`);
+      }
+    })
+  }
+
   private loginValid(user: User): void {
     this.showLogin = false;
     this.userId = user.id;
@@ -169,14 +174,11 @@ export class ApiService {
     localStorage.clear();
   }
 
-  private loadingAppts(): void {
-    this.loading = true;
-    if (this.doctor){
+  private loadDocAppts(): void {
     this.http.get<Appointment[]>(`${this.apptURL}?doctorId=${this.userId}`)
     .pipe(take(1))
     .subscribe({
-      next: appointments => {
-        console.log(appointments); 
+      next: appointments => {         
         this.appointments = appointments;
         this.loading = false;
       },
@@ -185,18 +187,49 @@ export class ApiService {
         this.loading = false;
       }
     })
-    } 
-    // else {
-    //   this.showError(`Patient appts not implemented`);
-    //   this.loading = false;
-
-    // }
   }
 
-  public tryLogin(username: string, password: string) : void {
-    // filters through users[] to find a match
-    this.http.get<User[]>(`${this.usersURL}?username=${username}&password=${password}`)
-    // do once and unsubscribe
+  private loadPatBookedAppts(): void {
+    this.http.get<Appointment[]>(`${this.apptURL}?patientId=${this.userId}`)
+    .pipe(take(1))
+    .subscribe({
+      next: appointments => {        
+        this.bookedAppts = appointments;
+        this.loadAvailableAppts();
+      },
+      error: () => {
+        this.showError(`Oops somethin wrong`);
+        this.loading = false;
+      }
+    })
+  }
+
+  private loadAvailableAppts(): void {
+    this.http.get<Appointment[]>(`${this.apptURL}`)
+    .pipe(take(1))
+    .subscribe({
+      next: appointments => {        
+        this.appointments = appointments.filter(appt => appt.patientId === null)
+        this.loading = false;
+      },
+      error: () => {
+        this.showError(`Oops somethin wrong`);
+        this.loading = false;
+      }
+    })
+  }
+
+  private loadingAppts(): void {
+    this.loading = true;
+    if (this.doctor){
+      this.loadDocAppts();
+    } else {
+      this.loadPatBookedAppts();
+    }    
+  }
+
+  public tryLogin(username: string, password: string) : void {    
+    this.http.get<User[]>(`${this.usersURL}?username=${username}&password=${password}`)    
     .pipe(take(1))
     .subscribe({
       next: users => {
@@ -222,9 +255,9 @@ export class ApiService {
 
   }
 
-      
-    
-  
+  getPatientBooked(): Appointment[] {
+    return this.bookedAppts
+  }
 
   
 
