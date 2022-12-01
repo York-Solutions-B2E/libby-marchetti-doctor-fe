@@ -38,36 +38,27 @@ export class ApiService {
   public getShowRegister(): boolean {
     return this.showRegister;
   }
-
   public getShowLogin(): boolean {
     return this.showLogin;
   }
-
   public getLoading(): boolean {
     return this.loading;
   }
-
   public getUsername(): string | undefined {
     return this.username;
   }
-
   public getAppointments(): Appointment[] {
     return this.appointments;
   }
-
   public getDoctor(): boolean {
     return this.userId !== undefined && this.doctor;
-  }
-  
+  }  
   public getNewAppt(): boolean {
     return this.newAppt;
   }
-
-  getPatientBooked(): Appointment[] {
+  public getPatientBooked(): Appointment[] {
     return this.bookedAppts
   }
-
-
 
   // === Register ===
   public startRegister(): void {
@@ -88,8 +79,7 @@ export class ApiService {
         error: () => {
           this.showError(`Unable to register`)
         }
-      })
-    
+      })    
   }
   public register(username: string, password: string, doctor: boolean): void {
     this.http
@@ -125,7 +115,6 @@ export class ApiService {
     localStorage.setItem('password', user.password);
     this.loadingAppts();
   }
-
   public logout(): void {
     this.showRegister = false;
     this.showLogin = true;
@@ -157,7 +146,6 @@ export class ApiService {
   public startNewAppt(): void {
     this.newAppt = true;
   }
-
   public cancelNewAppt(): void {
     this.newAppt = false;
   }
@@ -192,7 +180,6 @@ export class ApiService {
       }
     })
   }  
-
   public deleteAppt(id: number): void {
     this.http
     .delete(`${this.apptURL}/${id}`)
@@ -206,14 +193,6 @@ export class ApiService {
       }
     })
   }
-
-
-
-
-
-
- 
-
   public bookAppt(appointment: Appointment): void {
     this.http
     .put(`${this.apptURL}/${appointment.id}`, {
@@ -230,7 +209,6 @@ export class ApiService {
       }
     })
   }
-
   public cancelAppt(appointment: Appointment): void {
     this.http
     .put(`${this.apptURL}/${appointment.id}`, {
@@ -247,9 +225,6 @@ export class ApiService {
       }
     })
   }
-
-
-
   private loadDocAppts(): void {
     this.http.get<Appointment[]>(`${this.apptURL}?doctorId=${this.userId}`)
     .pipe(take(1))
@@ -264,7 +239,6 @@ export class ApiService {
       }
     })
   }
-
   private loadPatBookedAppts(): void {
     this.http.get<Appointment[]>(`${this.apptURL}?patientId=${this.userId}`)
     .pipe(take(1))
@@ -279,7 +253,6 @@ export class ApiService {
       }
     })
   }
-
   private loadAvailableAppts(): void {
     this.http.get<Appointment[]>(`${this.apptURL}`)
     .pipe(take(1))
@@ -294,7 +267,6 @@ export class ApiService {
       }
     })
   }
-
   private loadingAppts(): void {
     this.loading = true;
     if (this.doctor){
@@ -302,14 +274,11 @@ export class ApiService {
     } else {
       this.loadPatBookedAppts();
     }    
-  }
-  
+  }  
   // === Util ===
   private showError(message: string): void {    
       this.snackBar.open(message, undefined, {        
         duration: 2000
       });    
   }
-
-
 }
